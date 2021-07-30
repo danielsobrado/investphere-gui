@@ -1,2 +1,3 @@
-# investphere-gui
+### Investphere Admin GUI
+
 ReactJS GUI for Investphere
