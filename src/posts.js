@@ -1,4 +1,5 @@
 // in src/posts.js
+import React, { useState } from 'react';
 import {
     Filter,
     List,
@@ -14,6 +15,42 @@ import {
     TextInput,
 } from 'react-admin';
 
+import { Box, CardHeader } from '@material-ui/core';
+import "@coreui/coreui/dist/css/coreui.css";
+
+import ReactiveButton from 'reactive-button';
+
+let text = {
+    value: 'Not executed'
+}
+
+function RunButton() {
+    const [state, setState] = useState('idle');
+    
+    const onClickHandler = () => {
+        setState('loading');
+        text.value = 'Executing';
+        setTimeout(() => {
+            setState('success');
+        }, 2000);
+    }
+
+    return (
+        <ReactiveButton
+            buttonState={state}
+            loadingText={'Running'}
+            onClick={onClickHandler}
+            outline={true}
+            rounded={true}
+            color='dark'
+            idleText='Run'
+            style={{ paddingLeft: 3, paddingRight: 3 }}
+        />
+    );
+}
+
+export default RunButton;
+
 const PostFilter = (props) => (
     <Filter {...props}>
         <TextInput label="Search" source="q" alwaysOn />
@@ -24,6 +61,13 @@ const PostFilter = (props) => (
 );
 
 export const PostList = props => (
+    <div>
+    <Box>
+        <CardHeader title="Run the process: " />
+        <span class="m-4">
+            <RunButton></RunButton><span class="m-4">{text.value}</span>
+        </span>
+    </Box>
     <List filters={<PostFilter />} {...props}>
        <Datagrid>
            <TextField source="id" />
@@ -34,6 +78,7 @@ export const PostList = props => (
            <EditButton />
         </Datagrid>
     </List>
+    </div>
 );
 
 const PostTitle = ({ record }) => {
