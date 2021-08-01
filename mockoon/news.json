@@ -1,0 +1,32 @@
+{
+    "source": "mockoon:1.14.1",
+    "data": [
+        {
+            "type": "route",
+            "item": {
+                "uuid": "",
+                "documentation": "",
+                "method": "get",
+                "endpoint": "news",
+                "responses": [
+                    {
+                        "uuid": "",
+                        "body": "[\r\n  {{# repeat 10}}\r\n  {\r\n    \"id\": \"{{@index}}\",\r\n    \"url\": \"Link\",\r\n    \"text\": \"My dummy text\" \r\n  }\r\n  {{/ repeat}}\r\n]",
+                        "latency": 0,
+                        "statusCode": 200,
+                        "label": "",
+                        "headers": [],
+                        "filePath": "",
+                        "sendFileAsBody": false,
+                        "rules": [],
+                        "rulesOperator": "OR",
+                        "disableTemplating": false
+                    }
+                ],
+                "enabled": true,
+                "randomResponse": false,
+                "sequentialResponse": false
+            }
+        }
+    ]
+}

@@ -1,0 +1,32 @@
+{
+    "source": "mockoon:1.14.1",
+    "data": [
+        {
+            "type": "route",
+            "item": {
+                "uuid": "",
+                "documentation": "",
+                "method": "get",
+                "endpoint": "insiders",
+                "responses": [
+                    {
+                        "uuid": "",
+                        "body": "[\r\n  {{# repeat 10}}\r\n  {\r\n    \"id\": \"{{@index}}\",\r\n    \"ticker\": \"{{oneOf (array 'GOOG' 'MU' 'O' 'KO' 'MSFT')}}\",\r\n    \"owner\": \"{{lastName}} {{lastName}}\",\r\n    \"relationship\": \"{{oneOf (array 'Director' 'Chief Financial Officer' 'Chief Legal Officer' 'See Remarks' 'Other')}}\",\r\n    \"date\": \"{{date '2020-11-20' '2020-11-25' \"MMM dd yyyy\"}}\",\r\n    \"transaction\": \"{{oneOf (array 'Option Exercise' 'Buy' 'Sell')}}\",\r\n    \"cost\": \"{{float 0 100}}\",\r\n    \"sharesValue\": \"{{float 1000 1000000}}\",\r\n    \"totalShares\": \"{{int 0 100000}}\",\r\n    \"link\": \"Link\"\r\n  }\r\n  {{/ repeat}}\r\n]",
+                        "latency": 0,
+                        "statusCode": 200,
+                        "label": "",
+                        "headers": [],
+                        "filePath": "",
+                        "sendFileAsBody": false,
+                        "rules": [],
+                        "rulesOperator": "OR",
+                        "disableTemplating": false
+                    }
+                ],
+                "enabled": true,
+                "randomResponse": false,
+                "sequentialResponse": false
+            }
+        }
+    ]
+}
