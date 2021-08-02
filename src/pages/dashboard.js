@@ -1,4 +1,3 @@
-// in src/Dashboard.js
 import * as React from "react";
 import { Card, CardContent, CardHeader } from '@material-ui/core';
 import "@coreui/coreui/dist/css/coreui.css";

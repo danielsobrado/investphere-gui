@@ -1,20 +1,28 @@
-// in src/App.js
 import * as React from "react";
 import { Admin, Resource } from 'react-admin';
-import { UserList } from './users';
-import { PostList, PostEdit, PostCreate } from './posts';
+import { fetchUtils } from 'ra-core';
+
+import { CompaniesList } from './pages/companies';
+import { NewsProvidersList } from './pages/newsProviders';
+// import { InsiderList, InsiderEdit, InsiderCreate } from './insiders';
+import { InsiderList } from './pages/insiders';
 import jsonServerProvider from 'ra-data-json-server';
-import PostIcon from '@material-ui/icons/Book';
-import UserIcon from '@material-ui/icons/Group';
-import Dashboard from './Dashboard';
+import InsiderIcon from '@material-ui/icons/Book';
+import CompanyIcon from '@material-ui/icons/Business';
+import NewsProvidersIcon from '@material-ui/icons/Announcement';
+import Dashboard from './pages/dashboard';
 import authProvider from './authProvider';
 
-const dataProvider = jsonServerProvider('https://jsonplaceholder.typicode.com');
+const dataProvider = jsonServerProvider('http://localhost:5001/');
+
 const App = () => (
-    <Admin dashboard={Dashboard} authProvider={authProvider}  dataProvider={dataProvider}>
-        <Resource name="posts" list={PostList} edit={PostEdit} create={PostCreate} icon={PostIcon} />
-        <Resource name="users" list={UserList} icon={UserIcon} />
+    <Admin title="Investphere" dashboard={Dashboard} authProvider={authProvider} dataProvider={dataProvider}>
+        {/* <Resource name="insiders" list={InsiderList} edit={InsiderEdit} create={InsiderCreate} icon={InsiderIcon} /> */}
+        <Resource name="insiders" list={InsiderList} icon={InsiderIcon} />
+        <Resource name="companies" list={CompaniesList} icon={CompanyIcon} />
+        <Resource name="news" list={NewsProvidersList} icon={NewsProvidersIcon} />
     </Admin>
 );
 
 export default App;
+
