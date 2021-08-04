@@ -2,7 +2,6 @@
   "name": "investphere-gui",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://[::1]:5001",
   "dependencies": {
     "@coreui/coreui": "^4.0.0-rc.5",
     "@coreui/react": "^4.0.0-beta.3",

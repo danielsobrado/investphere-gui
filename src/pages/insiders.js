@@ -19,6 +19,7 @@ import { Box, CardHeader } from '@material-ui/core';
 import "@coreui/coreui/dist/css/coreui.css";
 
 import ReactiveButton from 'reactive-button';
+import { readJsonConfigFile } from 'typescript';
 
 let text = {
     value: 'Not executed'
@@ -26,13 +27,30 @@ let text = {
 
 function RunButton() {
     const [state, setState] = useState('idle');
-    
+
     const onClickHandler = () => {
         setState('loading');
         text.value = 'Executing';
+        const request = new Request('http://localhost:5001/insiders/run', {
+            method: 'POST',
+            body: JSON.stringify(({ task: 'exec2ute' })),
+            headers: new Headers({ 'Content-Type': 'application/json' }),
+        });
         setTimeout(() => {
             setState('success');
-        }, 2000);
+        }, 1000);
+        return fetch(request)
+            .then(response => {
+                if (response.status < 200 || response.status >= 300) {
+                    throw new Error(response.statusText);
+                }
+                return response.json();
+            })
+            .then(data => console.log(data))
+            .catch(error => {
+                // this.setState({ errorMessage: error.toString() });
+                console.error('There was an error!', error);
+            })
     }
 
     return (
@@ -60,25 +78,42 @@ const InsiderFilter = (props) => (
     </Filter>
 );
 
+
+export const InsiderPage = props => {
+
+    const [state, setState] = useState("Not Executed");
+
+    function handler() {
+        this.setState({
+            someVar: 'some value'
+        })
+    };
+
+    return (
+
+        <React.Fragment>
+            <Box>
+                <CardHeader title="Run the process: " />
+                <span class="m-4">
+                    <RunButton onClick="handler()" ></RunButton><span class="m-4">{state}</span>
+                </span>
+            </Box>
+            <InsiderList {...props} />
+        </React.Fragment>
+    );
+};
+
 export const InsiderList = props => (
-    <React.Fragment>
-        <Box>
-            <CardHeader title="Run the process: " />
-            <span class="m-4">
-                <RunButton></RunButton><span class="m-4">{text.value}</span>
-            </span>
-        </Box>
-        <List filters={<InsiderFilter />} {...props}>
-            <Datagrid>
-                <TextField source="id" />
-                    <ReferenceField source="ticker" reference="companies">
-                        <TextField source="ticker" />
-                    </ReferenceField>
-                    <TextField source="transaction" />
-                <EditButton />
-            </Datagrid>
-        </List>
-    </React.Fragment>
+    <List filters={<InsiderFilter />} {...props}>
+        <Datagrid>
+            <TextField source="id" />
+            <ReferenceField source="ticker" reference="companies">
+                <TextField source="ticker" />
+            </ReferenceField>
+            <TextField source="transaction" />
+            <EditButton />
+        </Datagrid>
+    </List>
 );
 
 // const InsiderTitle = ({ record }) => {
@@ -109,3 +144,4 @@ export const InsiderList = props => (
 //             </SimpleForm>
 //         </Create>
 // );
+
